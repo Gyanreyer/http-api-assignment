@@ -1,0 +1,26 @@
+{
+  "name": "http-api-assignment",
+  "version": "1.0.0",
+  "description": "A simple HTTP API",
+  "main": "src/server.js",
+  "scripts": {
+    "start":"node ./src/server.js",
+    "pretest":"eslint ./src --fix",
+    "test": "echo \"Tests complete\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gyanreyer/http-api-assignment.git"
+  },
+  "author": "Ryan Geyer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gyanreyer/http-api-assignment/issues"
+  },
+  "homepage": "https://github.com/Gyanreyer/http-api-assignment#readme",
+  "devDependencies": {
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0"
+  }
+}
