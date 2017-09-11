@@ -6,7 +6,39 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script type="text/babel">
+    window.onload = () => {
+      const sendButton = document.getElementById("send");
+      const pageSelection = document.getElementById("page");
+      const typeRequest = document.getElementById("type");
+      const responseDisplay = document.getElementById("content");
 
+      //Make
+      sendButton.onclick = () =>{
+          const xhr = new XMLHttpRequest();
+
+          xhr.onload = function(){
+            let id, message;
+
+            if(this.getResponseHeader("Content-Type") === "application/json"){
+              const parsedJSON = JSON.parse(this.responseText);
+              id = parsedJSON.id || "";
+              message = parsedJSON.message;
+            }
+            else{
+              const idElement = this.responseXML.querySelector("id");
+              id = idElement ? idElement.innerHTML : "";
+              message = this.responseXML.querySelector("message").innerHTML;
+            }
+            
+            responseDisplay.innerHTML = `<h1>${id}</h1><p>${message}</p>`;  
+          };
+
+          const requestURL = pageSelection.value + "?type=" + typeRequest.value;
+
+          xhr.open("GET", requestURL, true);
+          xhr.send();
+      };
+    };
   </script>
 </head>
 <body>
@@ -29,5 +61,6 @@
   </section>
   <section id="content">
   </section>
+
 </body>
 </html>
