@@ -12,29 +12,35 @@
       const typeRequest = document.getElementById("type");
       const responseDisplay = document.getElementById("content");
 
-      //Make
+      //When user clicks sendbutton, send a get request based on page selections and then display response
       sendButton.onclick = () =>{
           const xhr = new XMLHttpRequest();
 
+          //Called when xhr receives a response from server
           xhr.onload = function(){
             let id, message;
 
+            //If response is JSON, parse it to get message
             if(this.getResponseHeader("Content-Type") === "application/json"){
               const parsedJSON = JSON.parse(this.responseText);
               id = parsedJSON.id || "";
               message = parsedJSON.message;
             }
+            //If response is XML, get message to display
             else{
               const idElement = this.responseXML.querySelector("id");
               id = idElement ? idElement.innerHTML : "";
               message = this.responseXML.querySelector("message").innerHTML;
             }
             
+            //Set response display element to show id and message from resonse
             responseDisplay.innerHTML = `<h1>${id}</h1><p>${message}</p>`;  
           };
 
+          //Set up request url with desired command and query for type
           const requestURL = pageSelection.value + "?type=" + typeRequest.value;
 
+          //Send get request
           xhr.open("GET", requestURL, true);
           xhr.send();
       };
